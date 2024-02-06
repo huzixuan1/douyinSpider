@@ -78,7 +78,7 @@ while True:
     has_more = json_data['has_more']
 
     params['cursor'] = json_data['cursor']
-    comments = json_data.get('comments', None)
+    comments = json_data.get('comments',)
     for data in comments:
         cid = data['cid']       
         create_time = data['create_time']
@@ -99,8 +99,4 @@ while True:
     print("======================")
     time.sleep(sleep_time)
     page+=1
-
-    if(has_more == 0):
-        print("There are no nothing comments!")
-        break
 
