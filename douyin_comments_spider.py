@@ -54,10 +54,7 @@ comments_count = 0
 userlink = "https://www.douyin.com/user/"
 url = 'https://www.douyin.com/aweme/v1/web/comment/list/'
 
-while True:
-    user_agent = UserAgent()
-    random.seed()
-   
+while True:   
     headers = {
         'authority': 'www.douyin.com',
         'accept': 'application/json, text/plain, */*',
@@ -78,14 +75,14 @@ while True:
     has_more = json_data['has_more']
 
     params['cursor'] = json_data['cursor']
-    comments = json_data.get('comments',)
+    comments = json_data('comments')
     for data in comments:
         cid = data['cid']       
         create_time = data['create_time']
         digg_count = data['digg_count']
         ip_label = data['ip_label']
         text = data['text']
-        nickname = data['user']['nickname']
+        nickname = data['nickname']
         print(page,cid,create_time,digg_count,ip_label,text,nickname)
         with open("douyinComments.csv", mode="a", newline='', encoding="utf-8-sig") as f:
             csv_write = csv.writer(f)
