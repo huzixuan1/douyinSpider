@@ -40,19 +40,16 @@ params = {
     'effective_type': '4g',
     'round_trip_time': '50',
     'webid': '7200000880502146617',
-    'msToken': 'bx4i0yVHohdNpCxCkxXOiZb4Qa17c3fr5NxbBHRb-E9dBLTqDMhTuWvJnIp0v2kN8ni16jZnGYAh5noDrC9oZCHIAreW6zSPLJd8HBZPcjc28C_nsDejp7alpv3E',
+    'msToken': 'bx4i0yVHohdNpCxCkxXOiZb4Qa17c3_nsDejp7alpv3E',
     'X-Bogus': 'DFSzswVuux0ANJOFtiAKJ/D4OFXQ'
 }
 
-with open("douyinComments.csv", mode="a", newline='', encoding="utf-8-sig") as f:
-    csv_write = csv.writer(f)
-    csv_write.writerow(['页码', '评论id', '评论发布时间','评论点赞数','评论发布ip', '评论','评论用户名'])
 
 page = 1
 comments_count = 0
 comments_count = 0
-userlink = "https://www.douyin.com/user/"
-url = 'https://www.douyin.com/aweme/v1/web/comment/list/'
+userlink = "http://www.douyin.com/user/"
+url = 'http://www.douyin.com/aweme/v1/web/comment/list/'
 
 while True:   
     headers = {
@@ -71,10 +68,7 @@ while True:
     }
 
     response = requests.get(url,params,headers=headers)
-    json_data = response.json()
-    has_more = json_data['has_more']
 
-    params['cursor'] = json_data['cursor']
     comments = json_data('comments')
     for data in comments:
         cid = data['cid']       
@@ -84,9 +78,6 @@ while True:
         text = data['text']
         nickname = data['nickname']
         print(page,cid,create_time,digg_count,ip_label,text,nickname)
-        with open("douyinComments.csv", mode="a", newline='', encoding="utf-8-sig") as f:
-            csv_write = csv.writer(f)
-            csv_write.writerow([page,cid,create_time,digg_count,ip_label,text,nickname])
         comments_count += 1
         
     print(headers['user-agent'])
